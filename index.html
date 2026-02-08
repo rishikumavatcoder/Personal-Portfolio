@@ -4,790 +4,1025 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rishi Kumavat | Cyber Security Portfolio</title>
-    <!-- Logo Icon -->
     <link rel="icon" type="image/png" href="weblogo.png">
     
-    <!-- ================= EXTERNAL LIBRARIES ================= -->
-    <!-- 1. Tailwind CSS: For layout and utility classes -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- 2. FontAwesome: For icons (GitHub, LinkedIn, Terminal icons) -->
+    <!-- Icons (Font Awesome) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- 3. Google Fonts: 'Share Tech Mono' for the Hacker/Terminal look -->
-    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     
-    <!-- 4. AOS: 'Animate On Scroll' library for fade-in effects -->
+    <!-- Animations -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
+    <!-- Config -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            black: '#050505',
+                            dark: '#0a0a0a',
+                            gray: '#171717',
+                            neon: '#00ff41',
+                            red: '#ff003c', /* Red Team Mode */
+                            dim: 'rgba(0, 255, 65, 0.1)',
+                            glass: 'rgba(20, 20, 20, 0.6)'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['"Share Tech Mono"', 'monospace'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'marquee': 'marquee 15s linear infinite',
+                        'fade-in': 'fadeIn 0.5s ease-out forwards',
+                        'scan': 'scan 2s linear infinite',
+                        'shake': 'shake 0.5s cubic-bezier(.36,.07,.19,.97) both',
+                    },
+                    keyframes: {
+                        float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } },
+                        marquee: { '0%': { transform: 'translateX(0%)' }, '100%': { transform: 'translateX(-100%)' } },
+                        fadeIn: { '0%': { opacity: '0', transform: 'translateY(10px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+                        scan: { '0%': { transform: 'translateY(-100%)' }, '100%': { transform: 'translateY(100%)' } },
+                        shake: { 
+                            '10%, 90%': { transform: 'translate3d(-1px, 0, 0)' },
+                            '20%, 80%': { transform: 'translate3d(2px, 0, 0)' },
+                            '30%, 50%, 70%': { transform: 'translate3d(-4px, 0, 0)' },
+                            '40%, 60%': { transform: 'translate3d(4px, 0, 0)' }
+                        }
+                    },
+                    cursor: {
+                        'crosshair': 'crosshair',
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        /* ================= CUSTOM CSS STYLES ================= */
-
-        /* --- 1. CSS VARIABLES (THEME CONFIG) --- */
-        /* These variables allow us to easily switch colors for Dark/Light mode */
+        /* --- CSS VARIABLES --- */
         :root {
-            --bg-color: #050505;           /* Deep Black Background */
-            --text-main: #e0e0e0;          /* Off-white text */
-            --text-muted: #9ca3af;         /* Gray text */
-            --accent: #0f0;                /* Neon Green (Hacker Style) */
-            --accent-dim: rgba(0, 255, 0, 0.1);
-            --glass-bg: rgba(10, 10, 10, 0.7); /* See-through card effect */
-            --border-color: #333;
-            --card-hover: rgba(0, 255, 0, 0.15);
-            --matrix-color: #0F0;          /* Matrix rain color */
-            --scanline-opacity: 0.15;      /* CRT Monitor effect intensity */
+            --bg-color: #050505;
+            --text-main: #e0e0e0;
+            --text-sub: #9ca3af;
+            --card-bg: rgba(23, 23, 23, 0.6);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --nav-bg: rgba(10, 10, 10, 0.8);
+            --accent-glow: rgba(0, 255, 65, 0.5);
+            --matrix-color: #00ff41;
+            --matrix-opacity: 0.07;
+            --scanline-opacity: 0.3;
         }
 
-        /* --- 2. LIGHT MODE OVERRIDES --- */
-        /* When body has class 'light-mode', these values replace the ones above */
         body.light-mode {
-            --bg-color: #f0f2f5;           /* Light Gray Background */
-            --text-main: #111827;          /* Dark Text */
-            --text-muted: #4b5563;
-            --accent: #059669;             /* Professional Dark Green */
-            --accent-dim: rgba(5, 150, 105, 0.1);
-            --glass-bg: rgba(255, 255, 255, 0.9);
-            --border-color: #e5e7eb;
-            --card-hover: rgba(5, 150, 105, 0.1);
-            --matrix-color: #000;          /* Black Matrix rain */
-            --scanline-opacity: 0.03;      /* Fainter scanlines */
+            --bg-color: #f0f2f5;
+            --text-main: #111827;
+            --text-sub: #4b5563;
+            --card-bg: rgba(255, 255, 255, 0.7);
+            --card-border: rgba(0, 0, 0, 0.05);
+            --nav-bg: rgba(255, 255, 255, 0.8);
+            --accent-glow: rgba(0, 0, 0, 0.2);
+            --matrix-color: #000000;
+            --matrix-opacity: 0.03;
+            --scanline-opacity: 0.05;
         }
 
-        /* --- 3. GLOBAL STYLES --- */
+        /* Red Team Mode */
+        body.red-team {
+            --accent-glow: rgba(255, 0, 60, 0.5);
+            --matrix-color: #ff003c;
+        }
+        body.red-team .text-cyber-neon { color: #ff003c !important; }
+        body.red-team .bg-cyber-neon { background-color: #ff003c !important; }
+        body.red-team .border-cyber-neon { border-color: #ff003c !important; }
+
+        /* Easter Egg: Debug Wireframe Mode */
+        body.debug-mode * {
+            outline: 1px solid var(--matrix-color) !important;
+            background: rgba(0, 0, 0, 0.05) !important;
+        }
+
+        /* Easter Egg: Destroy Mode */
+        body.destroy-mode {
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both infinite;
+            background-color: #ff0000 !important;
+        }
+        body.destroy-mode * { color: black !important; border-color: black !important; }
+
+        /* Easter Egg: Party Mode */
+        @keyframes rainbow { 
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+        /* Fixed: Apply to direct children instead of body to preserve fixed positioning context */
+        body.party-mode > * { animation: rainbow 2s linear infinite; }
+
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
-            font-family: 'Share Tech Mono', monospace; /* The coding font */
             overflow-x: hidden;
-            margin: 0;
-            transition: background-color 0.5s ease, color 0.5s ease; /* Smooth theme switch */
+            transition: background-color 0.5s ease, color 0.5s ease;
+            cursor: crosshair;
         }
 
-        /* --- 4. UTILITY CLASSES --- */
-        /* Used to hide/show sections for the Single Page App (SPA) feel */
-        .hidden-view { display: none !important; }
-        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        /* Matrix & Scanlines */
+        #matrix-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: var(--matrix-opacity); pointer-events: none; transition: opacity 0.5s ease; }
+        #matrix-canvas.hidden-rain { opacity: 0 !important; }
         
-        @keyframes fadeIn { 
-            from { opacity: 0; transform: translateY(10px); } 
-            to { opacity: 1; transform: translateY(0); } 
-        }
+        .scanlines { background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2)); background-size: 100% 4px; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 50; pointer-events: none; opacity: var(--scanline-opacity); transition: opacity 0.5s ease; }
 
-        /* --- 5. PRELOADER (BOOT SCREEN) --- */
-        #preloader {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: #000;
-            z-index: 9999; /* Stays on top of everything */
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            font-size: 1.5rem;
-            color: #0f0;
-        }
-        
-        /* --- 6. BACKGROUND ANIMATIONS --- */
-        /* The Canvas where Matrix rain is drawn */
-        #matrix-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.12; }
-        
-        /* The CRT Monitor Scanlines overlay */
-        .scanlines {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: linear-gradient(to bottom, rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 50%);
-            background-size: 100% 4px; pointer-events: none; z-index: 50;
-            opacity: var(--scanline-opacity); transition: opacity 0.5s;
-        }
-
-        /* --- 7. UI COMPONENTS --- */
-        /* Navigation Bar with Glass effect */
-        .glass-nav { background: var(--glass-bg); backdrop-filter: blur(10px); border-bottom: 1px solid var(--accent-dim); }
-        
-        /* The main cards (Projects, Badges, etc.) */
-        .cyber-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--border-color);
-            border-left: 4px solid var(--accent); /* Green left border */
-            backdrop-filter: blur(5px);
-            transform-style: preserve-3d; /* For 3D Tilt effect */
+        /* Bento Card Styles */
+        .bento-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: 1.5rem;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            overflow: hidden;
+            position: relative;
+            transform-style: preserve-3d;
             transform: perspective(1000px);
-            transition: all 0.3s ease;
         }
-        .cyber-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px -10px var(--card-hover); border-color: var(--accent); }
-        .cyber-content { transform: translateZ(20px); } /* Makes text pop out in 3D */
 
-        /* Custom Hacker Buttons */
-        .cyber-btn {
-            border: 1px solid var(--accent); color: var(--accent); background: transparent;
-            transition: all 0.3s ease; position: relative; overflow: hidden; z-index: 1; cursor: pointer;
+        .bento-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: var(--matrix-color);
+            box-shadow: 0 0 30px -5px var(--accent-glow), inset 0 0 20px -15px var(--accent-glow);
+            z-index: 10;
         }
-        /* Button Hover Fill Effect */
-        .cyber-btn::before {
-            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-            background: var(--accent); transition: 0.4s; z-index: -1;
-        }
-        .cyber-btn:hover::before { left: 0; }
-        .cyber-btn:hover { color: var(--bg-color); box-shadow: 0 0 15px var(--accent); }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
+        /* Nav Dock */
+        .nav-dock { background: var(--nav-bg); backdrop-filter: blur(16px); border: 1px solid var(--card-border); box-shadow: 0 20px 40px rgba(0,0,0,0.1); transition: background 0.5s ease; }
+
+        /* Helper Classes */
+        .text-dynamic { color: var(--text-main); }
+        .text-sub { color: var(--text-sub); }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--bg-color); }
-        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #00ff41; }
 
-        /* Theme Text Helpers */
-        .text-accent { color: var(--accent); }
-        .border-accent { border-color: var(--accent); }
+        /* Preloader */
+        #preloader { transition: opacity 0.5s ease-out; }
+        .modal-bg { opacity: 0; visibility: hidden; transition: 0.3s ease; }
+        .modal-bg.active { opacity: 1; visibility: visible; }
 
-        /* Mobile Menu Animation */
-        #mobile-menu { max-height: 0; opacity: 0; overflow: hidden; background: var(--glass-bg); transition: 0.3s ease; }
-        #mobile-menu.open { max-height: 400px; opacity: 1; }
-
-        /* --- 8. RESUME PASSWORD MODAL --- */
-        #resume-modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
-            z-index: 9999; display: none; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s;
+        /* Terminal Window */
+        .terminal-window {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.9);
+            width: 90%; max-width: 600px; height: 400px;
+            background: rgba(10, 10, 10, 0.95);
+            border: 1px solid #333; 
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            z-index: 200;
+            display: flex; flex-direction: column;
+            opacity: 0; pointer-events: none; transition: 0.2s ease;
+            font-family: 'Share Tech Mono', monospace;
+            color: #00ff41; 
+            border-color: #00ff41;
         }
-        #resume-modal.show { display: flex; opacity: 1; }
         
-        .auth-box {
-            background: var(--bg-color); border: 1px solid var(--accent); padding: 2rem;
-            width: 90%; max-width: 400px; text-align: center; box-shadow: 0 0 30px var(--accent-dim); transform: scale(0.9); transition: 0.3s;
+        body.red-team .terminal-window {
+            color: #ff003c;
+            border-color: #ff003c;
         }
-        #resume-modal.show .auth-box { transform: scale(1); }
-        
-        .auth-input {
-            width: 100%; background: #111; border: 1px solid #333; color: var(--accent);
-            padding: 10px; margin: 15px 0; font-family: 'Share Tech Mono', monospace; text-align: center; outline: none;
+
+        .terminal-window.open { opacity: 1; pointer-events: all; transform: translate(-50%, -50%) scale(1); }
+        .terminal-header { background: #1a1a1a; padding: 8px 12px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; }
+        .terminal-body { flex: 1; padding: 12px; overflow-y: auto; color: #ccc; font-size: 14px; }
+        .terminal-input-line { display: flex; gap: 8px; color: inherit; }
+        .terminal-input { background: transparent; border: none; outline: none; color: white; flex: 1; font-family: inherit; }
+
+        /* Network Bars Animation */
+        .bar { animation: bar-anim 1s infinite alternate; }
+        .bar:nth-child(2) { animation-delay: 0.2s; }
+        .bar:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes bar-anim { 0% { height: 20%; opacity: 0.3; } 100% { height: 100%; opacity: 1; } }
+
+        /* Glitch Text Effect */
+        .glitch-hover:hover { animation: glitch-anim 0.3s infinite; }
+        @keyframes glitch-anim {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) }
+            60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) }
+            100% { transform: translate(0) }
         }
     </style>
 </head>
-<body class="selection:bg-green-500 selection:text-black antialiased">
+<body class="selection:bg-cyber-neon selection:text-black">
 
-    <!-- ================= 1. PRELOADER ================= -->
-    <div id="preloader">
-        <div class="mb-4 font-mono"><span class="text-green-500">></span> SYSTEM BOOT SEQUENCE...</div>
-        <div id="loader-text" class="text-xs text-gray-400 font-mono"></div>
-        <div class="w-64 h-1 bg-gray-800 mt-4 rounded overflow-hidden">
-            <div id="loader-bar" class="h-full bg-green-500 w-0 transition-all duration-[2000ms] ease-out"></div>
-        </div>
-    </div>
-
-    <!-- ================= 2. RESUME AUTH MODAL ================= -->
-    <div id="resume-modal">
-        <div class="auth-box">
-            <h3 class="text-xl font-bold text-accent mb-2">RESTRICTED ACCESS</h3>
-            <p class="text-gray-400 text-sm mb-4">Encrypted File Detected.</p>
-            <div class="bg-red-900/20 border border-red-900/50 p-3 mb-4 text-xs text-red-300">
-                <i class="fas fa-lock mr-1"></i> Hint: "The Password is Your Name"
-            </div>
-            <input type="text" id="password-input" class="auth-input" placeholder="Enter Password..." autocomplete="off">
-            <div id="auth-msg" class="text-xs h-4 mb-4 font-bold tracking-wider"></div>
-            <div class="flex gap-2 justify-center">
-                <button onclick="checkPassword()" class="cyber-btn px-6 py-2 rounded text-sm font-bold">DECRYPT</button>
-                <button onclick="closeModal()" class="px-4 py-2 border border-gray-600 text-gray-400 rounded text-sm hover:border-red-500 hover:text-red-500 transition">ABORT</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ================= 3. BACKGROUND EFFECTS ================= -->
-    <canvas id="matrix-canvas"></canvas> <!-- Matrix Rain -->
-    <div class="scanlines"></div>        <!-- CRT Monitor Lines -->
-    
-    <!-- ================= 3.5 BACKGROUND AUDIO ================= -->
-    <!-- IMPORTANT: Place your 'bg-music.mp3' file in the same folder -->
-    <audio id="bg-music" loop preload="auto">
-        <source src="bg-music1.mp3" type="audio/mpeg">
+    <!-- AUDIO -->
+    <audio id="bg-music" loop>
+        <source src="bg-music.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- ================= 4. NAVIGATION BAR ================= -->
-    <nav class="fixed w-full z-40 glass-nav transition-colors duration-500">
-        <div class="container mx-auto px-6 py-4">
-            <div class="flex justify-between items-center">
-                <!-- Logo: Click to go Home -->
-                <div class="cursor-pointer" onclick="switchView('home')">
-                    <!-- IMPORTANT: Replace src with your actual logo image file -->
-                    <img src="weblogo.png" alt="RK Logo" class="h-10 w-auto object-contain hover:drop-shadow-[0_0_8px_rgba(0,255,0,0.8)] transition">
-                </div>
-                
-                <!-- Desktop Menu Links -->
-                <div class="hidden md:flex items-center space-x-8">
-                    <!-- 'switchView' changes the displayed section without reloading page -->
-                    <button onclick="switchView('home')" class="text-gray-400 hover:text-accent transition text-sm">./Home</button>
-                    <button onclick="switchView('projects-view')" class="text-gray-400 hover:text-accent transition text-sm">./Projects</button>
-                    <button onclick="switchView('achievements-view')" class="text-gray-400 hover:text-accent transition text-sm">./Achievements</button>
-                    <button onclick="switchView('blog-view')" class="text-gray-400 hover:text-accent transition text-sm">./Blog</button>
-                    
-                    <!-- Resume Button (Triggers Modal) -->
-                    <button onclick="openModal()" class="px-4 py-1 border border-accent text-accent text-xs rounded hover:bg-accent hover:text-black transition">
-                        Resume
-                    </button>
-                    
-                    <!-- Sound Toggle Button (Desktop) -->
-                    <button id="sound-toggle" class="text-gray-400 hover:text-accent transition focus:outline-none" title="Toggle Sound">
-                        <i class="fas fa-volume-mute text-lg" id="sound-icon"></i>
-                    </button>
+    <!-- MATRIX BG -->
+    <canvas id="matrix-canvas"></canvas>
+    <div class="scanlines"></div>
 
-                    <!-- Theme Toggle Button -->
-                    <button id="theme-toggle" class="text-gray-400 hover:text-accent transition focus:outline-none" title="Toggle Theme">
-                        <i class="fas fa-sun text-lg" id="theme-icon"></i>
-                    </button>
-                </div>
+    <!-- PRELOADER -->
+    <div id="preloader" class="fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center font-mono">
+        <div class="text-cyber-neon text-4xl mb-4 font-bold tracking-tighter">INITIALIZING</div>
+        <div class="w-64 h-1 bg-gray-800 rounded-full overflow-hidden">
+            <div id="loader-bar" class="h-full bg-cyber-neon w-0 transition-all duration-[1500ms] ease-out"></div>
+        </div>
+        <div id="loader-text" class="mt-2 text-xs text-gray-500">Loading Assets...</div>
+    </div>
 
-                <!-- Mobile Menu Button (Hamburger) -->
-                <div class="flex items-center gap-4 md:hidden">
-                    <!-- Sound Toggle Button (Mobile) -->
-                    <button id="sound-toggle-mobile" class="text-gray-400 hover:text-accent focus:outline-none">
-                        <i class="fas fa-volume-mute" id="sound-icon-mobile"></i>
-                    </button>
-                    
-                    <button id="theme-toggle-mobile" class="text-gray-400 hover:text-accent focus:outline-none">
-                        <i class="fas fa-sun" id="theme-icon-mobile"></i>
-                    </button>
-                    <button id="menu-btn" class="text-accent hover:text-white focus:outline-none">
-                        <i class="fas fa-bars text-2xl"></i>
-                    </button>
-                </div>
+    <!-- RESUME PASSWORD MODAL -->
+    <div id="resume-modal" class="modal-bg fixed inset-0 z-[90] flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
+        <div class="modal-box w-full max-w-md bg-[#0a0a0a] border border-cyber-neon/30 p-8 rounded-2xl shadow-[0_0_50px_rgba(0,255,65,0.1)] relative">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-white"><i class="fas fa-times"></i></button>
+            <div class="text-center mb-6">
+                <i class="fas fa-lock text-3xl text-cyber-neon mb-4"></i>
+                <h3 class="text-xl font-sans font-bold text-white">Restricted Access</h3>
+                <p class="text-gray-400 text-sm mt-2">Enter credentials to decrypt Resume.</p>
+                <div class="mt-2 inline-block px-3 py-1 bg-red-500/10 border border-red-500/20 rounded text-[10px] text-red-400 font-mono">HINT: The Password is My Name</div>
             </div>
+            <input type="text" id="password-input" class="w-full bg-[#111] border border-gray-800 text-center text-cyber-neon font-mono p-3 rounded-lg focus:outline-none focus:border-cyber-neon transition mb-4" placeholder="ENTER_PASSWORD" autocomplete="off">
+            <button onclick="checkPassword()" class="w-full bg-cyber-neon text-black font-bold py-3 rounded-lg hover:bg-white transition-colors duration-300">DECRYPT & DOWNLOAD</button>
+            <p id="auth-msg" class="text-center text-xs font-mono mt-4 h-4"></p>
+        </div>
+    </div>
 
-            <!-- Mobile Menu Dropdown -->
-            <div id="mobile-menu" class="md:hidden mt-2 border-t border-accent border-opacity-30">
-                <div class="flex flex-col space-y-4 py-4">
-                    <button onclick="switchView('home'); toggleMenu()" class="text-left text-gray-400 hover:text-accent pl-2 border-l-2 border-transparent hover:border-accent">./Home</button>
-                    <button onclick="switchView('projects-view'); toggleMenu()" class="text-left text-gray-400 hover:text-accent pl-2 border-l-2 border-transparent hover:border-accent">./Projects</button>
-                    <button onclick="switchView('achievements-view'); toggleMenu()" class="text-left text-gray-400 hover:text-accent pl-2 border-l-2 border-transparent hover:border-accent">./Achievements</button>
-                    <button onclick="switchView('blog-view'); toggleMenu()" class="text-left text-gray-400 hover:text-accent pl-2 border-l-2 border-transparent hover:border-accent">./Blog</button>
-                    <button onclick="openModal(); toggleMenu()" class="text-left text-gray-400 hover:text-accent pl-2 border-l-2 border-transparent hover:border-accent">./Decrypt Resume</button>
-                </div>
-            </div>
+    <!-- TERMINAL MODAL -->
+    <div id="terminal-modal" class="terminal-window">
+        <div class="terminal-header">
+            <div class="text-xs text-gray-400">root@rishi-portfolio:~</div>
+            <button onclick="toggleTerminal()" class="text-red-500 hover:text-white"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="terminal-body" id="terminal-output">
+            <div class="mb-2" style="color: inherit;">Welcome to RishiOS v1.0. Type 'help' for commands.</div>
+        </div>
+        <div class="p-3 bg-black/50 border-t border-gray-800 terminal-input-line">
+            <span>root@rishi:~$</span>
+            <input type="text" id="terminal-input" class="terminal-input" autocomplete="off" spellcheck="false">
+        </div>
+    </div>
+
+    <!-- FLOATING DOCK NAVIGATION -->
+    <nav class="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 w-[95%] max-w-lg">
+        <div class="nav-dock flex items-center justify-between px-4 py-3 rounded-full overflow-x-auto no-scrollbar">
+            <button onclick="scrollToSection('home')" class="p-2 text-sub hover:text-cyber-neon transition" title="Home"><i class="fas fa-home text-lg"></i></button>
+            <button onclick="scrollToSection('about')" class="p-2 text-sub hover:text-cyber-neon transition" title="About"><i class="fas fa-user-astronaut text-lg"></i></button>
+            <button onclick="scrollToSection('projects')" class="p-2 text-sub hover:text-cyber-neon transition" title="Projects"><i class="fas fa-code text-lg"></i></button>
+            <button onclick="scrollToSection('achievements')" class="p-2 text-sub hover:text-cyber-neon transition" title="Achievements"><i class="fas fa-trophy text-lg"></i></button>
+            <button onclick="scrollToSection('blog')" class="p-2 text-sub hover:text-cyber-neon transition" title="Blog"><i class="fas fa-blog text-lg"></i></button>
+            <button onclick="scrollToSection('contact')" class="p-2 text-sub hover:text-cyber-neon transition" title="Contact"><i class="fas fa-envelope text-lg"></i></button>
+            
+            <div class="w-px h-6 bg-gray-700 mx-2 shrink-0"></div>
+            
+            <button onclick="toggleTerminal()" class="p-2 text-cyber-neon hover:scale-110 transition animate-pulse" title="Terminal (CMD)"><i class="fas fa-terminal text-lg"></i></button>
+            
+            <button onclick="openModal()" class="p-2 text-sub hover:text-white transition" title="Resume"><i class="fas fa-file-invoice text-lg"></i></button>
+            <button id="theme-toggle" class="p-2 text-sub hover:text-yellow-400 transition" title="Theme"><i class="fas fa-sun text-lg" id="theme-icon"></i></button>
         </div>
     </nav>
 
-    <!-- ================= VIEW 1: HOME PAGE ================= -->
-    <div id="home" class="view-section fade-in">
+    <!-- MAIN CONTENT -->
+    <main class="max-w-7xl mx-auto px-4 pb-32 pt-10">
         
-        <!-- HERO SECTION: Main Title & Intro -->
-        <section class="min-h-screen flex items-center justify-center pt-20 relative px-4 overflow-hidden">
-            <div class="container mx-auto text-center z-10 max-w-4xl">
-                <!-- Glitchy subtext -->
-                <div data-aos="fade-down" data-aos-delay="2000" class="mb-4 text-accent text-opacity-80 text-xs md:text-sm tracking-[0.3em] font-bold">
-                    SYSTEM ONLINE... IDENTITY VERIFIED
-                </div>
-                
-                <!-- Main Name -->
-                <h1 data-aos="zoom-in" data-aos-delay="2200" class="text-4xl sm:text-5xl md:text-7xl font-bold mb-6 text-white uppercase tracking-tight" style="color: var(--text-main);">
-                    Rishi Kumavat
-                </h1>
-                
-                <!-- Typewriter Effect -->
-                <div data-aos="fade-up" data-aos-delay="2400" class="text-lg sm:text-xl md:text-2xl text-gray-400 mb-10 h-8 font-light">
-                    I am a <span id="typewriter" style="color: var(--text-main);" class="font-bold"></span><span class="cursor bg-accent w-2 h-5 inline-block animate-pulse ml-1 align-middle">&nbsp;</span>
-                </div>
-
-                <!-- Social Links -->
-                <div class="flex flex-wrap justify-center gap-4 mt-8 w-full" data-aos="fade-up" data-aos-delay="2600">
-                    <a href="https://www.linkedin.com/in/rishi-kumavat" target="_blank" class="cyber-btn px-5 py-3 rounded font-bold flex items-center gap-2 text-sm">
-                        <i class="fab fa-linkedin text-lg"></i> LinkedIn
-                    </a>
-                    <a href="https://github.com/rishikumavatcoder" target="_blank" class="cyber-btn px-5 py-3 rounded font-bold flex items-center gap-2 text-sm">
-                        <i class="fab fa-github text-lg"></i> GitHub
-                    </a>
-                    <a href="https://tryhackme.com/p/rishikumavat12" target="_blank" class="cyber-btn px-5 py-3 rounded font-bold flex items-center gap-2 text-sm">
-                        <i class="fas fa-cube text-lg"></i> TryHackMe
-                    </a>
+        <!-- HEADER -->
+        <header id="home" class="flex justify-between items-center mb-12">
+            <div class="flex items-center gap-3">
+                <img src="weblogo.png" alt="Logo" class="w-10 h-10 object-contain drop-shadow-[0_0_8px_rgba(0,255,65,0.5)]">
+                <div class="hidden sm:block">
+                    <h1 class="font-bold text-lg leading-none text-dynamic glitch-hover cursor-pointer">Rishi Kumavat</h1>
+                    <span class="text-xs text-cyber-neon font-mono">./cyber_security_student</span>
                 </div>
             </div>
-        </section>
-
-        <!-- ABOUT SECTION: Info Card & Terminal -->
-        <section id="about" class="py-20 relative">
-            <div class="container mx-auto px-6">
-                <h2 class="text-2xl md:text-3xl font-bold text-accent mb-10 border-b border-gray-700 pb-4 flex items-center" data-aos="fade-right">
-                    <i class="fas fa-user-secret mr-3"></i> ./whoami
-                </h2>
-                
-                <div class="grid md:grid-cols-2 gap-8 items-stretch">
-                    <!-- 1. Personal Info Card (With Tilt Effect) -->
-                    <div class="cyber-card p-6 md:p-8 rounded-lg flex flex-col justify-between" data-tilt data-aos="fade-up">
-                        <div class="cyber-content">
-                            <p class="text-base md:text-lg leading-relaxed text-gray-400 mb-6">
-                                <span class="text-accent font-bold">>> Initializing connection...</span><br><br>
-                                I am a <strong>1st Year Cyber Security Student</strong> passionate about network defense, ethical hacking, and securing digital infrastructures.
-                            </p>
-                        </div>
-                        <!-- Live Status Section (TryHackMe Badge) -->
-                        <div class="mt-4 border-t border-gray-700/50 pt-6 cyber-content">
-                            <h3 class="text-accent font-bold mb-4 text-xs tracking-widest uppercase">>> LIVE STATUS</h3>
-                            <div class="flex flex-col sm:flex-row gap-6 items-center sm:items-start">
-                                <!-- Profile Pic Placeholder -->
-                                <div class="w-24 h-24 rounded-full border-2 border-accent p-1 relative">
-                                    <img src="my.jpeg" alt="Rishi" class="w-full h-full rounded-full object-cover">
-                                    <div class="absolute bottom-0 right-0 w-4 h-4 bg-accent rounded-full border-2 border-black animate-ping"></div>
-                                </div>
-                                <!-- THM Dynamic Badge -->
-                                <div class="flex-1 w-full flex justify-center sm:justify-start">
-                                    <img src="https://tryhackme-badges.s3.amazonaws.com/rishikumavat12.png" alt="THM Badge" class="w-full max-w-[320px] rounded shadow-lg border border-gray-700">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 2. Interactive Terminal Simulation -->
-                    <div class="bg-black border border-gray-700 rounded-lg p-4 font-mono text-xs md:text-sm shadow-2xl flex flex-col h-full min-h-[300px]" data-aos="fade-left">
-                        <div class="flex gap-2 mb-4 border-b border-gray-800 pb-2">
-                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                            <div class="ml-auto text-gray-500 text-xs">root@kali</div>
-                        </div>
-                        <div class="flex-1 overflow-y-auto space-y-2 text-gray-300">
-                            <div><span class="text-green-500">root@kali:~$</span> ./goals.sh</div>
-                            <div class="pl-2">Running...</div>
-                            <div class="pl-2 text-blue-400">Target: Become Perfect Cyber Defensor</div>
-                            <div class="pl-2 text-blue-400">Progress: 5%</div>
-                            <div><span class="text-green-500">root@kali:~$</span> <span class="w-2 h-4 bg-green-500 inline-block animate-pulse"></span></div>
-                        </div>
-                    </div>
-                </div>
+            <div class="flex gap-3">
+                <a href="https://github.com/rishikumavatcoder" target="_blank" class="px-4 py-2 rounded-full bg-gray-900 border border-gray-800 hover:border-cyber-neon text-sm text-gray-300 transition flex items-center gap-2">
+                    <i class="fab fa-github"></i> <span class="hidden sm:inline">GitHub</span>
+                </a>
+                <a href="https://www.linkedin.com/in/rishi-kumavat" target="_blank" class="px-4 py-2 rounded-full bg-blue-900/20 border border-blue-900/50 hover:border-blue-500 text-sm text-blue-400 transition flex items-center gap-2">
+                    <i class="fab fa-linkedin"></i> <span class="hidden sm:inline">LinkedIn</span>
+                </a>
             </div>
-        </section>
+        </header>
 
-        <!-- FEATURED PROJECTS (Preview) -->
-        <section class="py-20">
-            <div class="container mx-auto px-6">
-                <!-- Header with Link to Full Archive -->
-                <div class="flex justify-between items-center mb-10 border-b border-gray-700 pb-4">
-                    <h2 class="text-2xl md:text-3xl font-bold text-accent flex items-center">
-                        <i class="fas fa-code mr-3"></i> ./featured_projects
+        <!-- BENTO GRID (ABOUT) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-20" id="about">
+            <!-- 1. INTRO (Large) -->
+            <div class="bento-card col-span-1 md:col-span-2 row-span-2 p-8 flex flex-col justify-between group" data-tilt>
+                <div class="transform translate-z-10">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyber-neon/10 border border-cyber-neon/20 text-cyber-neon text-xs font-mono mb-6">
+                        <span class="relative flex h-2 w-2">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                        </span>
+                        SYSTEM ONLINE
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-bold text-dynamic mb-4 tracking-tight">
+                        Securing the <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyber-neon to-blue-500">Digital Frontier</span>
                     </h2>
-                    <button onclick="switchView('projects-view')" class="text-sm text-accent hover:underline">>> View Archives</button>
+                    <p class="text-sub leading-relaxed max-w-md">
+                        I am a 1st Year Cyber Security Student and aspiring Ethical Hacker. I build tools to test defenses and study vulnerabilities.
+                    </p>
+                </div>
+                <div class="mt-8 font-mono text-sm text-sub transform translate-z-10">
+                    <span class="text-cyber-neon">></span> Focus: <span id="typewriter" class="text-dynamic"></span><span class="bg-cyber-neon w-2 h-4 inline-block align-middle ml-1 animate-pulse"></span>
+                </div>
+            </div>
+
+            <!-- 2. PROFILE PICTURE -->
+            <div class="bento-card col-span-1 row-span-1 relative group overflow-hidden" data-tilt>
+                <img src="my.jpeg" alt="Rishi" class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-110 group-hover:opacity-80">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-4 transform translate-z-10">
+                    <div class="font-bold text-white">Rishi Kumavat</div>
+                    <div class="text-xs text-gray-300 font-mono">ID: 0x489F</div>
+                </div>
+            </div>
+
+            <!-- 3. VISITOR INTEL -->
+            <div class="bento-card col-span-1 row-span-1 bg-black/90 p-4 font-mono text-xs flex flex-col justify-between border-cyber-neon/30" data-tilt>
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-cyber-neon flex items-center gap-2"><i class="fas fa-wifi animate-pulse"></i> NET_MONITOR</span>
+                    <span class="text-[9px] text-gray-500">LIVE</span>
+                </div>
+                <div class="space-y-2">
+                    <div>
+                        <div class="text-gray-500 text-[9px]">VISITOR IP</div>
+                        <div id="visitor-ip" class="text-white font-bold tracking-wider">SCANNING...</div>
+                    </div>
+                    <div>
+                        <div class="text-gray-500 text-[9px]">SYSTEM</div>
+                        <div id="visitor-agent" class="text-white truncate">DETECTING...</div>
+                    </div>
+                </div>
+                <div class="flex gap-1 h-6 mt-2 items-end">
+                    <div class="bar w-1 bg-cyber-neon"></div>
+                    <div class="bar w-1 bg-cyber-neon"></div>
+                    <div class="bar w-1 bg-cyber-neon"></div>
+                    <div class="bar w-1 bg-cyber-neon"></div>
+                    <div class="bar w-1 bg-cyber-neon"></div>
+                </div>
+            </div>
+
+            <!-- 4. TECH STACK MARQUEE -->
+            <div class="bento-card col-span-1 md:col-span-1 p-0 flex flex-col items-center justify-center overflow-hidden" data-tilt>
+                <div class="text-xs font-bold text-sub uppercase tracking-widest pt-4">Tech Arsenal</div>
+                <div class="w-full flex-1 flex items-center overflow-hidden relative">
+                    <div class="flex animate-marquee whitespace-nowrap gap-8 px-4 text-dynamic text-2xl">
+                        <i class="fab fa-python hover:text-yellow-300 transition" title="Python"></i>
+                        <i class="fab fa-linux hover:text-white transition" title="Linux"></i>
+                        <i class="fab fa-js hover:text-yellow-400 transition" title="JavaScript"></i>
+                        <i class="fab fa-react hover:text-blue-400 transition" title="React"></i>
+                        <i class="fas fa-terminal hover:text-gray-400 transition" title="Bash"></i>
+                        <i class="fas fa-shield-alt hover:text-green-500 transition" title="Cyber Security"></i>
+                        <i class="fab fa-git-alt hover:text-red-500 transition" title="Git"></i>
+                        <i class="fab fa-html5 hover:text-orange-500 transition" title="HTML5"></i>
+                        <i class="fab fa-python hover:text-yellow-300 transition"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. REAL-TIME CLOCK -->
+             <div class="bento-card col-span-1 p-6 flex flex-col justify-center items-center text-center" data-tilt>
+                <div class="text-[10px] text-cyber-neon font-mono mb-1">MISSION TIME (IST)</div>
+                <div id="clock" class="text-3xl font-bold text-dynamic font-mono">00:00:00</div>
+                <!-- Location Removed -->
+            </div>
+        </div>
+
+        <!-- PROJECTS -->
+        <section id="projects" class="mb-20">
+            <h2 class="text-2xl font-bold text-dynamic mb-8 flex items-center gap-2" data-aos="fade-right"><i class="fas fa-code text-cyber-neon"></i> Featured Projects</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="projects-grid">
+                <!-- Project 1 -->
+                <div class="bento-card p-0 group" data-aos="fade-up" data-tilt>
+                    <div class="h-48 overflow-hidden relative">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition z-10"></div>
+                        <img src="Password.PNG" alt="Project" class="w-full h-full object-cover transition duration-500 group-hover:scale-105">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-dynamic">SecurePass Gen</h3>
+                            <a href="https://rishikumavatcoder.github.io/Password-Generater/" target="_blank" class="text-sub hover:text-cyber-neon"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                        <p class="text-sm text-sub mb-4">Client-side cryptographic password generator featuring custom entropy settings.</p>
+                        <span class="px-2 py-1 bg-gray-800 text-[10px] text-gray-300 rounded border border-gray-700">JavaScript</span>
+                    </div>
+                </div>
+                <!-- Project 2 -->
+                <div class="bento-card p-0 group" data-aos="fade-up" data-aos-delay="100" data-tilt>
+                    <div class="h-48 overflow-hidden relative">
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition z-10"></div>
+                        <img src="QR.PNG" alt="Project" class="w-full h-full object-cover transition duration-500 group-hover:scale-105">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold text-dynamic">Quick QR</h3>
+                            <a href="https://rishikumavatcoder.github.io/QR/" target="_blank" class="text-sub hover:text-cyber-neon"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                        <p class="text-sm text-sub mb-4">Instant QR code generation tool for secure link sharing and data encoding.</p>
+                        <span class="px-2 py-1 bg-gray-800 text-[10px] text-gray-300 rounded border border-gray-700">API</span>
+                    </div>
                 </div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <!-- Project Preview 1 -->
-                    <div class="cyber-card p-6 rounded-lg group" data-aos="fade-up">
-                        <h3 class="text-xl font-bold text-white mb-2" style="color: var(--text-main);">Password Generate</h3>
-                        <p class="text-gray-400 text-sm mb-4">Generate complex, cryptographically strong credentials instantly with customizable length and character sets.</p>
-                        <button onclick="switchView('projects-view')" class="text-accent text-sm hover:underline">Read Details</button>
+                <!-- Hidden Placeholder Projects -->
+                <div class="bento-card p-0 group hidden hidden-project" data-tilt>
+                     <div class="h-48 bg-gray-900 border-b border-white/5 flex items-center justify-center relative overflow-hidden">
+                        <i class="fas fa-user-secret text-4xl text-gray-700"></i>
+                        <div class="absolute inset-0 bg-black/50 flex items-center justify-center">
+                            <span class="text-cyber-neon font-mono text-sm border border-cyber-neon px-2 py-1">CLASSIFIED</span>
+                        </div>
                     </div>
-                     <!-- Project Preview 2 -->
-                     <div class="cyber-card p-6 rounded-lg group" data-aos="fade-up" data-aos-delay="100">
-                        <h3 class="text-xl font-bold text-white mb-2" style="color: var(--text-main);">QR Generate</h3>
-                        <p class="text-gray-400 text-sm mb-4">Rapidly generate QR codes for secure data sharing, link redirection, and authentication testing</p>
-                        <button onclick="switchView('projects-view')" class="text-accent text-sm hover:underline">Read Details</button>
+                    <div class="p-6">
+                         <h3 class="text-xl font-bold text-gray-500">Project Red Team</h3>
+                         <p class="text-sm text-gray-600 mb-4">Advanced penetration testing toolkit currently under development.</p>
+                         <span class="px-2 py-1 bg-gray-900 text-[10px] text-gray-600 rounded border border-gray-800">Python</span>
                     </div>
                 </div>
+                <div class="bento-card p-0 group hidden hidden-project" data-tilt>
+                     <div class="h-48 bg-gray-900 border-b border-white/5 flex items-center justify-center relative overflow-hidden">
+                        <i class="fas fa-network-wired text-4xl text-gray-700"></i>
+                         <div class="absolute inset-0 bg-black/50 flex items-center justify-center">
+                            <span class="text-cyber-neon font-mono text-sm border border-cyber-neon px-2 py-1">CLASSIFIED</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                         <h3 class="text-xl font-bold text-gray-500">Network Sniffer</h3>
+                         <p class="text-sm text-gray-600 mb-4">Packet analysis tool using raw sockets for educational purposes.</p>
+                         <span class="px-2 py-1 bg-gray-900 text-[10px] text-gray-600 rounded border border-gray-800">C++</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View More Projects Button -->
+            <div class="text-center mt-8">
+                <button onclick="toggleProjects()" id="view-projects-btn" class="px-6 py-2 border border-cyber-neon/30 rounded-full text-xs font-mono text-cyber-neon hover:bg-cyber-neon/10 transition group">
+                    <span class="group-hover:tracking-wider transition-all duration-300">>> VIEW MORE PROJECTS</span>
+                </button>
             </div>
         </section>
 
-        <!-- FEATURED CERTIFICATES (Preview) -->
-        <section class="py-20 bg-black/20">
-            <div class="container mx-auto px-6">
-                <!-- Header with Link to Full Archive -->
-                <div class="flex justify-between items-center mb-10 border-b border-gray-700 pb-4">
-                    <h2 class="text-2xl md:text-3xl font-bold text-accent flex items-center">
-                        <i class="fas fa-certificate mr-3"></i> ./recent_achievements
-                    </h2>
-                    <button onclick="switchView('achievements-view')" class="text-sm text-accent hover:underline">>> View All Credentials</button>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <!-- Cert Preview 1 -->
-                    <div class="cyber-card p-6 rounded-lg flex items-center gap-4" data-aos="fade-up">
-                        <i class="fas fa-shield-alt text-3xl text-accent"></i>
-                        <div>
-                            <h3 class="font-bold text-white" style="color: var(--text-main);">Intro to Cyber Security</h3>
-                            <p class="text-xs text-gray-400">TryHackMe</p>
+        <!-- ACHIEVEMENTS - SEPARATED CATEGORIES -->
+        <section id="achievements" class="mb-20">
+            <h2 class="text-2xl font-bold text-dynamic mb-8 flex items-center gap-2" data-aos="fade-right"><i class="fas fa-trophy text-cyber-neon"></i> Achievements</h2>
+            
+            <div class="mb-12">
+                <h3 class="text-xl font-bold text-sub mb-6 flex items-center gap-2 border-l-4 border-blue-500 pl-3">
+                    <i class="fas fa-certificate text-blue-500"></i> Professional Certifications
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Cisco Cert -->
+                    <div class="bento-card p-4 flex items-center gap-4 group" data-aos="fade-up" data-tilt>
+                        <div class="w-16 h-16 bg-white/5 rounded-lg flex items-center justify-center shrink-0 border border-white/10">
+                            <img src="introduction-to-cybersecurity.png" class="w-10 h-10 object-contain">
                         </div>
-                    </div>
-                    <!-- Cert Preview 2 -->
-                    <div class="cyber-card p-6 rounded-lg flex items-center gap-4" data-aos="fade-up" data-aos-delay="100">
-                        <i class="fas fa-file-contract text-3xl text-accent"></i>
                         <div>
-                            <h3 class="font-bold text-white" style="color: var(--text-main);">Cyber Essentials</h3>
-                            <p class="text-xs text-gray-400">Cisco</p>
+                            <h4 class="font-bold text-dynamic group-hover:text-cyber-neon transition">Intro to Cybersecurity</h4>
+                            <p class="text-xs text-sub">Cisco Networking Academy</p>
+                            <div class="mt-2 text-[10px] text-sub font-mono">VERIFIED • OCT 2025</div>
+                        </div>
+                        <a href="cisco.pdf" target="_blank" class="ml-auto w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-sub hover:bg-cyber-neon hover:text-black transition"><i class="fas fa-download text-xs"></i></a>
+                    </div>
+                    
+                    <!-- Microsoft Cert -->
+                    <div class="bento-card p-4 flex flex-col justify-between group" data-aos="fade-up" data-delay="100" data-tilt>
+                        <div>
+                            <div class="flex items-center gap-2 mb-2">
+                                <i class="fab fa-microsoft text-xl text-blue-400"></i>
+                                <i class="fab fa-linkedin text-xl text-blue-600"></i>
+                            </div>
+                            <h4 class="font-bold text-dynamic text-sm group-hover:text-blue-400 transition">Generative AI Skills</h4>
+                            <p class="text-[10px] text-sub">Microsoft & LinkedIn</p>
+                        </div>
+                        <a href="Build Your Generative AI Productivity Skills with Microsoft and LinkedIn.pdf" target="_blank" class="mt-4 text-xs text-sub border border-white/10 rounded px-2 py-1 hover:bg-white/5 transition inline-block w-fit">View PDF</a>
+                    </div>
+
+                    <!-- Hidden Cert Placeholder -->
+                    <div class="bento-card hidden hidden-cert p-4 flex items-center gap-4 border-dashed border-gray-700 opacity-60" data-tilt>
+                        <div class="w-16 h-16 bg-white/5 rounded-lg flex items-center justify-center shrink-0">
+                            <i class="fas fa-file-contract text-2xl text-sub"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-sub">Upcoming Certification</h4>
+                            <p class="text-xs text-gray-600">CompTIA Security+ (In Progress)</p>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                 <!-- THM Badge -->
+                 <div class="bento-card p-6 flex flex-col items-center justify-center text-center" data-aos="fade-up" data-tilt>
+                    <div class="w-full h-24 bg-black/20 rounded border border-white/5 overflow-hidden relative group mb-4">
+                        <img src="https://tryhackme-badges.s3.amazonaws.com/rishikumavat12.png" class="w-full h-full object-contain p-2 group-hover:scale-105 transition">
+                    </div>
+                    <h3 class="font-bold text-dynamic text-sm mb-1">TryHackMe Rank</h3>
+                    <a href="https://tryhackme.com/p/rishikumavat12" target="_blank" class="text-xs text-cyber-neon hover:underline">View Profile &rarr;</a>
+                </div>
+
+                <!-- Hackathon Win Placeholder -->
+                <div class="bento-card p-6 flex flex-col items-center justify-center text-center border border-yellow-500/30" data-aos="fade-up" data-delay="100" data-tilt>
+                    <i class="fas fa-trophy text-3xl text-yellow-500 mb-3 animate-pulse"></i>
+                    <h4 class="font-bold text-dynamic">Cyber Defense Hackathon</h4>
+                    <p class="text-xs text-sub mt-1">Runner Up - 2025</p>
+                    <span class="mt-2 text-[10px] bg-yellow-500/10 text-yellow-500 px-2 py-1 rounded font-bold border border-yellow-500/20">WINNER</span>
+                </div>
+
+                <!-- Hidden Honor Placeholder -->
+                <div class="bento-card hidden hidden-honor p-6 flex flex-col items-center justify-center text-center" data-tilt>
+                     <i class="fas fa-flag text-3xl text-red-500 mb-3"></i>
+                     <h4 class="font-bold text-dynamic">CTF Challenge #42</h4>
+                     <p class="text-xs text-sub mt-1">Captured 5 Flags</p>
+                </div>
+            </div>
+
+            <!-- View More Button -->
+            <div class="text-center mt-12">
+                <button onclick="toggleAllAchievements()" id="view-achievements-btn" class="px-6 py-2 border border-cyber-neon/30 rounded-full text-xs font-mono text-cyber-neon hover:bg-cyber-neon/10 transition group">
+                    <span class="group-hover:tracking-wider transition-all duration-300">>> VIEW ALL HONORS</span>
+                </button>
+            </div>
         </section>
-        
-        <!-- CONTACT FORM -->
-        <section id="contact" class="py-20">
-            <div class="container mx-auto px-6">
-                <h2 class="text-2xl md:text-3xl font-bold text-accent mb-10 border-b border-gray-700 pb-4 flex items-center" data-aos="fade-right">
-                    <i class="fas fa-envelope mr-3"></i> ./secure_comm
+
+        <!-- INTELLIGENCE LOG -->
+        <section id="blog" class="mb-20">
+            <div class="flex justify-between items-end mb-8">
+                <h2 class="text-2xl font-bold text-dynamic flex items-center gap-2" data-aos="fade-right">
+                    <i class="fab fa-linkedin text-blue-500"></i> Intelligence Log
                 </h2>
+                <a href="https://www.linkedin.com/in/rishi-kumavat/recent-activity/all/" target="_blank" class="text-xs text-cyber-neon hover:underline">View All Activity &rarr;</a>
+            </div>
+            <div class="bento-card p-6" data-aos="fade-up" data-tilt>
+                <div class="space-y-6">
+                    <div class="flex flex-col md:flex-row gap-4 items-start pb-6 border-b border-gray-800">
+                        <div class="w-12 h-12 bg-blue-900/20 rounded-lg flex items-center justify-center text-blue-400 shrink-0"><i class="fas fa-newspaper text-xl"></i></div>
+                        <div class="flex-1">
+                            <h3 class="font-bold text-dynamic hover:text-blue-400 transition cursor-pointer">The Future of Cyber Defense: AI Integration</h3>
+                            <p class="text-sm text-sub mt-1">Exploring how generative AI is reshaping threat detection.</p>
+                            <div class="flex items-center gap-4 mt-3">
+                                <span class="text-[10px] text-gray-500 font-mono">OCT 2025</span>
+                                <a href="https://www.linkedin.com/in/rishi-kumavat" target="_blank" class="text-xs text-blue-400 hover:underline flex items-center gap-1">Read on LinkedIn <i class="fas fa-external-link-alt text-[10px]"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-                <div class="max-w-2xl mx-auto cyber-card p-8 rounded-lg" data-aos="zoom-in">
-                    <p class="text-gray-400 text-sm mb-6 text-center">Establish an encrypted channel. Send your query below.</p>
-                    <!-- IMPORTANT: Replace ACTION_URL_HERE with your Formspree.io URL -->
-                    <form action="https://formspree.io/f/xkogwnvy" method="POST" class="space-y-4">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-accent text-xs font-bold mb-2">./name</label>
-                                <input type="text" name="name" class="w-full bg-gray-900 border border-gray-700 text-gray-200 p-3 rounded focus:border-accent focus:outline-none" placeholder="Enter Name">
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="mb-32">
+            <h2 class="text-2xl font-bold text-dynamic mb-8 flex items-center gap-2" data-aos="fade-right">
+                <i class="fas fa-envelope text-cyber-neon"></i> Secure Communication
+            </h2>
+            <div class="bento-card p-8 md:p-12" data-aos="zoom-in" data-tilt>
+                <div class="max-w-2xl mx-auto">
+                    <p class="text-sub text-center mb-8">Establish an encrypted channel. Send your query below.</p>
+                    <form action="https://formspree.io/f/xkogwnvy" method="POST" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="relative group">
+                                <label class="text-[10px] text-cyber-neon font-mono uppercase tracking-widest mb-1 block">./Identity</label>
+                                <input type="text" name="name" required class="w-full bg-black/40 border border-gray-700 text-dynamic p-3 rounded focus:border-cyber-neon focus:outline-none focus:bg-black/60 transition" placeholder="Enter Name">
                             </div>
-                            <div>
-                                <label class="block text-accent text-xs font-bold mb-2">./email</label>
-                                <input type="email" name="email" class="w-full bg-gray-900 border border-gray-700 text-gray-200 p-3 rounded focus:border-accent focus:outline-none" placeholder="Enter Email">
+                            <div class="relative group">
+                                <label class="text-[10px] text-cyber-neon font-mono uppercase tracking-widest mb-1 block">./Frequency</label>
+                                <input type="email" name="email" required class="w-full bg-black/40 border border-gray-700 text-dynamic p-3 rounded focus:border-cyber-neon focus:outline-none focus:bg-black/60 transition" placeholder="Enter Email">
                             </div>
                         </div>
-                        <div>
-                            <label class="block text-accent text-xs font-bold mb-2">./message</label>
-                            <textarea name="message" rows="5" class="w-full bg-gray-900 border border-gray-700 text-gray-200 p-3 rounded focus:border-accent focus:outline-none" placeholder="Type your message..."></textarea>
+                        <div class="relative group">
+                            <label class="text-[10px] text-cyber-neon font-mono uppercase tracking-widest mb-1 block">./Transmission</label>
+                            <textarea name="message" rows="4" required class="w-full bg-black/40 border border-gray-700 text-dynamic p-3 rounded focus:border-cyber-neon focus:outline-none focus:bg-black/60 transition" placeholder="Type your message..."></textarea>
                         </div>
-                        <button type="submit" class="cyber-btn w-full py-3 font-bold rounded flex items-center justify-center gap-2 group">
-                            <i class="fas fa-paper-plane group-hover:translate-x-1 transition"></i> Send Transmission
+                        <button type="submit" class="w-full py-4 bg-cyber-neon/10 border border-cyber-neon text-cyber-neon font-bold rounded hover:bg-cyber-neon hover:text-black transition duration-300 flex items-center justify-center gap-2 group">
+                            <i class="fas fa-paper-plane group-hover:translate-x-1 transition"></i> SEND ENCRYPTED DATA
                         </button>
                     </form>
                 </div>
             </div>
         </section>
-    </div>
 
-    <!-- ================= VIEW 2: PROJECTS ARCHIVE ================= -->
-    <div id="projects-view" class="view-section hidden-view fade-in min-h-screen pt-24 pb-20">
-        <div class="container mx-auto px-6">
-            <!-- Back Button -->
-            <button onclick="switchView('home')" class="mb-8 text-accent hover:text-white transition flex items-center gap-2">
-                <i class="fas fa-arrow-left"></i> Return to Terminal
-            </button>
-            
-            <h2 class="text-4xl font-bold text-accent mb-4">./project_archives</h2>
-            <p class="text-gray-400 mb-12">Full database of developed tools, scripts, and web applications.</p>
+        <!-- FOOTER -->
+        <footer class="text-center border-t border-gray-800 pt-8 pb-20">
+            <p class="text-sub text-sm font-mono">&copy; 2026 Rishi Kumavat. <span class="text-cyber-neon">System Secure.</span></p>
+        </footer>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Project 1 -->
-                <div class="cyber-card p-6 rounded-lg group">
-                    <div class="h-40 bg-gray-800 rounded-md mb-4 overflow-hidden relative border border-gray-700">
-                        <img src="Password.PNG" class="w-full h-full object-cover group-hover:scale-110 transition duration-500 opacity-60 group-hover:opacity-100">
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-2" style="color: var(--text-main);">Password Generate</h3>
-                    <div class="flex gap-2 mb-4 text-xs">
-                        <span class="px-2 py-1 border border-accent text-accent rounded">HTML/JS</span>
-                        <span class="px-2 py-1 border border-gray-600 text-gray-400 rounded">Frontend</span>
-                    </div>
-                    <p class="text-gray-400 text-sm mb-4">Generate complex, cryptographically strong credentials instantly with customizable length and character sets.</p>
-                    <a href="https://rishikumavatcoder.github.io/Password-Generater/" class="text-accent hover:underline text-sm"><i class="fas fa-external-link-alt"></i> Live Demo</a>
-                </div>
+    </main>
 
-                <!-- Project 2 -->
-                <div class="cyber-card p-6 rounded-lg group">
-                    <div class="h-40 bg-gray-800 rounded-md mb-4 overflow-hidden relative border border-gray-700">
-                        <img src="QR.PNG" class="w-full h-full object-cover group-hover:scale-110 transition duration-500 opacity-60 group-hover:opacity-100">
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-2" style="color: var(--text-main);">QR Generate</h3>
-                    <div class="flex gap-2 mb-4 text-xs">
-                        <span class="px-2 py-1 border border-accent text-accent rounded">HTML/JS</span>
-                        <span class="px-2 py-1 border border-gray-600 text-gray-400 rounded">Frontend</span>
-                    </div>
-                    <p class="text-gray-400 text-sm mb-4">Rapidly generate QR codes for secure data sharing, link redirection, and authentication testing</p>
-                    <a href="https://rishikumavatcoder.github.io/QR/" class="text-accent hover:underline text-sm"><i class="fas fa-external-link-alt"></i> Live Demo</a>
-                </div>
-
-                <!-- Placeholder for Future Project -->
-                <div class="cyber-card p-6 rounded-lg group opacity-50 hover:opacity-100 transition">
-                    <div class="h-40 bg-gray-900 rounded-md mb-4 flex items-center justify-center border border-dashed border-gray-700">
-                        <i class="fas fa-plus text-4xl text-gray-600"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-500 mb-2">Upcoming Project</h3>
-                    <p class="text-gray-500 text-sm mb-4">Currently in development...</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ================= VIEW 3: ACHIEVEMENTS ARCHIVE ================= -->
-    <div id="achievements-view" class="view-section hidden-view fade-in min-h-screen pt-24 pb-20">
-        <div class="container mx-auto px-6">
-            <button onclick="switchView('home')" class="mb-8 text-accent hover:text-white transition flex items-center gap-2">
-                <i class="fas fa-arrow-left"></i> Return to Terminal
-            </button>
-
-            <h2 class="text-4xl font-bold text-accent mb-4">./credential_database</h2>
-            <p class="text-gray-400 mb-12">Verified certificates, badges, and learning paths.</p>
-
-            <!-- Badges Section -->
-            <h3 class="text-2xl text-white mb-6 border-l-4 border-accent pl-4" style="color: var(--text-main);">Badges</h3>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
-                <!-- Badge 1 -->
-                <div class="cyber-card p-4 rounded-lg text-center flex flex-col items-center">
-                    <img src="https://via.placeholder.com/100/000000/00FF00?text=Intro" class="w-20 h-20 object-contain mb-3">
-                    <h4 class="font-bold text-sm text-white" style="color: var(--text-main);">Intro to Cyber</h4>
-                    <p class="text-xs text-gray-400">TryHackMe</p>
-                </div>
-            </div>
-
-            <!-- Certificates Section -->
-            <h3 class="text-2xl text-white mb-6 border-l-4 border-accent pl-4" style="color: var(--text-main);">Certifications</h3>
-            <div class="space-y-6">
-                <!-- Cert 1 -->
-                <div class="cyber-card p-6 rounded-lg flex flex-col md:flex-row items-center gap-6">
-                    <div class="w-full md:w-64 h-48 bg-gray-800 border border-gray-700 shrink-0 overflow-hidden rounded relative">
-                        <img src="https://via.placeholder.com/400x300/000000/00FF00?text=Cert+Image" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition">
-                    </div>
-                    <div class="flex-1">
-                        <h3 class="text-xl font-bold text-white" style="color: var(--text-main);">Cyber Security Essentials</h3>
-                        <p class="text-accent mb-2 font-mono text-sm">Issued by: Cisco</p>
-                        <p class="text-gray-400 text-sm mb-4">Comprehensive course covering network defense, firewall configuration, and security policies.</p>
-                        <a href="#" class="inline-block px-4 py-2 border border-gray-600 rounded text-sm hover:border-accent hover:text-accent transition text-gray-300">View Document</a>
-                    </div>
-                </div>
-                <!-- Cert 2 -->
-            </div>
-        </div>
-    </div>
-
-    <!-- ================= VIEW 4: BLOG ARCHIVE ================= -->
-    <div id="blog-view" class="view-section hidden-view fade-in min-h-screen pt-24 pb-20">
-        <div class="container mx-auto px-6">
-            <button onclick="switchView('home')" class="mb-8 text-accent hover:text-white transition flex items-center gap-2">
-                <i class="fas fa-arrow-left"></i> Return to Terminal
-            </button>
-            
-            <h2 class="text-4xl font-bold text-accent mb-4">./knowledge_base</h2>
-            <p class="text-gray-400 mb-12">Writeups for CTF challenges, security research, and tutorials.</p>
-
-            <div class="grid gap-6">
-                <!-- Blog Post 1 -->
-                <a href="#" class="cyber-card p-6 rounded-lg flex flex-col md:flex-row gap-6 group no-underline hover:bg-gray-800 transition">
-                    <div class="w-full md:w-48 h-32 bg-gray-900 rounded border border-gray-700 flex items-center justify-center shrink-0">
-                        <i class="fas fa-robot text-4xl text-gray-600 group-hover:text-accent transition"></i>
-                    </div>
-                    <div class="flex-1">
-                        <div class="text-xs text-accent mb-1">Oct 12, 2024 • CTF Writeup</div>
-                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-accent transition" style="color: var(--text-main);">Solving 'Mr. Robot' CTF on TryHackMe</h3>
-                        <p class="text-gray-400 text-sm mb-4">A step-by-step walkthrough of how I identified vulnerabilities in the Wordpress site, gained a shell, and escalated privileges to root.</p>
-                        <span class="text-accent text-sm group-hover:underline">Read Article &rarr;</span>
-                    </div>
-                </a>
-
-                <!-- Blog Post 2 -->
-                <a href="#" class="cyber-card p-6 rounded-lg flex flex-col md:flex-row gap-6 group no-underline hover:bg-gray-800 transition">
-                    <div class="w-full md:w-48 h-32 bg-gray-900 rounded border border-gray-700 flex items-center justify-center shrink-0">
-                        <i class="fas fa-lock text-4xl text-gray-600 group-hover:text-accent transition"></i>
-                    </div>
-                    <div class="flex-1">
-                        <div class="text-xs text-accent mb-1">Sep 05, 2024 • Security Guide</div>
-                        <h3 class="text-xl font-bold text-white mb-2 group-hover:text-accent transition" style="color: var(--text-main);">Understanding OWASP Top 10</h3>
-                        <p class="text-gray-400 text-sm mb-4">Breakdown of critical web app security risks including SQL Injection and XSS with prevention strategies.</p>
-                        <span class="text-accent text-sm group-hover:underline">Read Article &rarr;</span>
-                    </div>
-                </a>
-
-                <!-- Blog Post 3 (Placeholder) -->
-                <a href="#" class="cyber-card p-6 rounded-lg flex flex-col md:flex-row gap-6 group no-underline hover:bg-gray-800 transition opacity-70">
-                    <div class="w-full md:w-48 h-32 bg-gray-900 rounded border border-gray-700 flex items-center justify-center shrink-0 border-dashed">
-                        <i class="fas fa-pen text-4xl text-gray-600"></i>
-                    </div>
-                    <div class="flex-1 flex flex-col justify-center">
-                        <h3 class="text-xl font-bold text-gray-500 mb-2">Upcoming: Windows Privilege Escalation</h3>
-                        <p class="text-gray-600 text-sm">Working on a comprehensive guide for Windows privesc vectors...</p>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <!-- ================= FOOTER ================= -->
-    <footer class="py-8 border-t border-accent border-opacity-30 bg-black text-center relative z-10 px-4">
-        <div class="text-gray-500 text-sm">
-            <p>&copy; 2026 Rishi Kumavat. <span class="text-accent">Access Granted.</span></p>
-        </div>
-    </footer>
-
-    <!-- ================= SCRIPTS: DO NOT EDIT ANYTHING ================= -->
-    <!-- Libraries -->
+    <!-- SCRIPTS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
-
     <script>
-        // --- 1. SINGLE PAGE APP (SPA) VIEW LOGIC ---
-        // This function hides all pages and only shows the one with the 'viewId'
-        function switchView(viewId) {
-            // Hide all elements with class 'view-section'
-            document.querySelectorAll('.view-section').forEach(el => el.classList.add('hidden-view'));
-            
-            // Show the target section. If it doesn't exist, default to 'home'
-            const target = document.getElementById(viewId) || document.getElementById('home');
-            target.classList.remove('hidden-view');
-            
-            // Scroll to top instantly
-            window.scrollTo(0, 0);
+        // --- 1. ROBUST PRELOADER ---
+        // Forces preloader to remove after 2s even if load event fails (prevents freezing)
+        window.addEventListener('load', removePreloader);
+        setTimeout(removePreloader, 2000); 
 
-            // Refresh AOS animations so elements fade in again
-            setTimeout(() => { AOS.refresh(); }, 100);
-        }
-
-        // --- 2. PRELOADER ANIMATION ---
-        window.addEventListener('load', () => {
-            const loaderText = document.getElementById('loader-text');
-            const loaderBar = document.getElementById('loader-bar');
+        function removePreloader() {
             const preloader = document.getElementById('preloader');
+            const loaderBar = document.getElementById('loader-bar');
             
-            // Step 1: 40%
-            setTimeout(() => { loaderBar.style.width = "40%"; loaderText.innerText = "Loading Modules..." }, 300);
-            // Step 2: 80%
-            setTimeout(() => { loaderBar.style.width = "80%"; loaderText.innerText = "Decrypting Data..." }, 1000);
-            // Step 3: 100%
-            setTimeout(() => { loaderBar.style.width = "100%"; loaderText.innerText = "Access Granted."; }, 1500);
+            if (loaderBar) loaderBar.style.width = '100%';
             
-            // Step 4: Hide Preloader
-            setTimeout(() => {
-                preloader.style.opacity = '0'; // Fade out
-                preloader.style.transition = 'opacity 0.5s ease';
-                setTimeout(() => { preloader.style.display = 'none'; }, 500); // Remove from DOM
-            }, 2000);
-        });
-
-        // --- 3. INITIALIZE ANIMATE ON SCROLL (AOS) ---
-        AOS.init({ offset: 100, duration: 800, easing: 'ease-in-out', once: false }); // 'once: false' allows re-animating
-
-        // --- 4. THEME TOGGLE LOGIC ---
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const themeToggleMobile = document.getElementById('theme-toggle-mobile');
-        const themeIcons = [document.getElementById('theme-icon'), document.getElementById('theme-icon-mobile')];
-        const body = document.body;
-
-        // Check LocalStorage for saved theme preference
-        if (localStorage.getItem('theme') === 'light') enableLightMode();
-
-        function enableLightMode() {
-            body.classList.add('light-mode'); // CSS handles color changes
-            // Change icon to Moon
-            themeIcons.forEach(icon => { icon.classList.remove('fa-sun'); icon.classList.add('fa-moon'); });
-            localStorage.setItem('theme', 'light');
-        }
-        function enableDarkMode() {
-            body.classList.remove('light-mode'); // Removes override styles
-            // Change icon to Sun
-            themeIcons.forEach(icon => { icon.classList.remove('fa-moon'); icon.classList.add('fa-sun'); });
-            localStorage.setItem('theme', 'dark');
-        }
-        function toggleTheme() {
-            if (body.classList.contains('light-mode')) enableDarkMode();
-            else enableLightMode();
-        }
-        // Add click listeners
-        themeToggleBtn.addEventListener('click', toggleTheme);
-        themeToggleMobile.addEventListener('click', toggleTheme);
-
-        // --- 5. MATRIX RAIN ANIMATION ---
-        const canvas = document.getElementById('matrix-canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        const chars = '01ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        const fontSize = 14;
-        let columns = Math.floor(canvas.width / fontSize);
-        let drops = [];
-        // Initialize drops
-        for (let i = 0; i < columns; i++) drops[i] = Math.floor(Math.random() * canvas.height / fontSize);
-
-        function drawMatrix() {
-            const style = getComputedStyle(document.body);
-            // Get current matrix color from CSS variable
-            const matrixColor = style.getPropertyValue('--matrix-color').trim();
+            if (preloader && preloader.style.opacity !== '0') {
+                setTimeout(() => {
+                    preloader.style.opacity = '0';
+                    setTimeout(() => preloader.style.display = 'none', 500);
+                }, 500);
+            }
             
-            // Fading effect
-            ctx.fillStyle = body.classList.contains('light-mode') ? 'rgba(240, 242, 245, 0.1)' : 'rgba(5, 5, 5, 0.05)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.font = fontSize + 'px monospace';
+            // Visitor IP Fetch (Safe)
+            const ipEl = document.getElementById('visitor-ip');
+            if(ipEl && ipEl.innerText === "SCANNING...") {
+                fetch('https://api.ipify.org?format=json')
+                    .then(res => res.json())
+                    .then(data => ipEl.innerText = data.ip)
+                    .catch(() => ipEl.innerText = "127.0.0.1 (HIDDEN)");
+            }
             
-            for (let i = 0; i < drops.length; i++) {
-                const text = chars.charAt(Math.floor(Math.random() * chars.length));
-                ctx.fillStyle = matrixColor;
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                // Reset drop to top randomly
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
-                drops[i]++;
+            // OS Detection
+            const agentEl = document.getElementById('visitor-agent');
+            if(agentEl && agentEl.innerText === "DETECTING...") {
+                const ua = navigator.userAgent;
+                let os = "UNKNOWN SYSTEM";
+                if (ua.indexOf("Win") !== -1) os = "WINDOWS OS";
+                if (ua.indexOf("Mac") !== -1) os = "MACOS";
+                if (ua.indexOf("Linux") !== -1) os = "LINUX KERNEL";
+                if (ua.indexOf("Android") !== -1) os = "ANDROID";
+                if (ua.indexOf("like Mac") !== -1) os = "IOS";
+                agentEl.innerText = os;
             }
         }
-        setInterval(drawMatrix, 50);
+
+        // --- INIT LIBRARIES ---
+        AOS.init({ offset: 50, duration: 800, once: true });
+        VanillaTilt.init(document.querySelectorAll("[data-tilt]"), { max: 5, speed: 400, glare: true, "max-glare": 0.1 });
+
+        // --- NAVIGATION ---
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if(el) el.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- CLOCK WIDGET (FIXED IST) ---
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-GB', { timeZone: 'Asia/Kolkata', hour12: false });
+            const clockEl = document.getElementById('clock');
+            if(clockEl) clockEl.innerText = timeString;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // --- TYPEWRITER ---
+        const phrases = ["Network Defense", "Penetration Testing", "Python Scripting"];
+        let phraseIdx = 0, charIdx = 0, isDeleting = false;
+        const typeTarget = document.getElementById('typewriter');
         
-        // Handle window resize
-        window.addEventListener('resize', () => {
+        function typeLoop() {
+            if (!typeTarget) return;
+            const current = phrases[phraseIdx];
+            if (isDeleting) { typeTarget.innerText = current.substring(0, charIdx - 1); charIdx--; } 
+            else { typeTarget.innerText = current.substring(0, charIdx + 1); charIdx++; }
+            let speed = isDeleting ? 50 : 100;
+            if (!isDeleting && charIdx === current.length) { isDeleting = true; speed = 2000; } 
+            else if (isDeleting && charIdx === 0) { isDeleting = false; phraseIdx = (phraseIdx + 1) % phrases.length; speed = 500; }
+            setTimeout(typeLoop, speed);
+        }
+        if (typeTarget) setTimeout(typeLoop, 2000);
+
+        // --- TOGGLE ACHIEVEMENTS ---
+        function toggleAllAchievements() {
+            const certItems = document.querySelectorAll('.hidden-cert');
+            const honorItems = document.querySelectorAll('.hidden-honor');
+            const btn = document.getElementById('view-achievements-btn');
+            
+            if (!btn || certItems.length === 0) return;
+
+            const isHidden = certItems[0].classList.contains('hidden');
+
+            const toggle = (items) => items.forEach(item => {
+                if(isHidden) { item.classList.remove('hidden'); item.classList.add('animate-fade-in'); } 
+                else { item.classList.add('hidden'); item.classList.remove('animate-fade-in'); }
+            });
+
+            toggle(certItems);
+            toggle(honorItems);
+            
+            btn.querySelector('span').innerText = isHidden ? "<< HIDE HONORS" : ">> VIEW ALL HONORS";
+        }
+
+        // --- TOGGLE PROJECTS ---
+        function toggleProjects() {
+            const hiddenItems = document.querySelectorAll('.hidden-project');
+            const btn = document.getElementById('view-projects-btn');
+            
+            if (!btn || hiddenItems.length === 0) return;
+            
+            const isHidden = hiddenItems[0].classList.contains('hidden');
+            hiddenItems.forEach(item => {
+                if(isHidden) { item.classList.remove('hidden'); item.classList.add('animate-fade-in'); } 
+                else { item.classList.add('hidden'); item.classList.remove('animate-fade-in'); }
+            });
+            btn.querySelector('span').innerText = isHidden ? "<< HIDE PROJECTS" : ">> VIEW MORE PROJECTS";
+        }
+
+        // --- MATRIX EFFECT ---
+        const canvas = document.getElementById('matrix-canvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
             canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-            columns = Math.floor(canvas.width / fontSize); drops = [];
-            for (let i = 0; i < columns; i++) drops[i] = Math.floor(Math.random() * canvas.height / fontSize);
-        });
-
-        // --- 6. MOBILE MENU TOGGLE ---
-        const menuBtn = document.getElementById('menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('open');
-            const icon = menuBtn.querySelector('i');
-            icon.classList.toggle('fa-bars'); icon.classList.toggle('fa-times');
-        });
-        function toggleMenu() {
-            mobileMenu.classList.remove('open');
-            menuBtn.querySelector('i').classList.add('fa-bars'); menuBtn.querySelector('i').classList.remove('fa-times');
+            const letters = "0101010101ABCDEF"; const fontSize = 14;
+            const drops = Array(Math.floor(canvas.width / fontSize)).fill(1);
+            
+            function drawMatrix() {
+                const style = getComputedStyle(document.body);
+                ctx.fillStyle = document.body.classList.contains('light-mode') ? "rgba(240, 242, 245, 0.1)" : "rgba(5, 5, 5, 0.05)";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = style.getPropertyValue('--matrix-color').trim();
+                ctx.font = fontSize + "px monospace";
+                for(let i = 0; i < drops.length; i++) {
+                    const text = letters[Math.floor(Math.random() * letters.length)];
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                    if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                    drops[i]++;
+                }
+            }
+            setInterval(drawMatrix, 50);
         }
 
-        // --- 7. TYPEWRITER EFFECT ---
-        const textElement = document.getElementById('typewriter');
-        const phrases = ["Cyber Security Student", "CTF Player", "Tech Enthusiast", "Future Ethical Hacker"];
-        let phraseIndex = 0; let charIndex = 0; let isDeleting = false;
-        
-        function type() {
-            const currentPhrase = phrases[phraseIndex];
-            if (isDeleting) { textElement.textContent = currentPhrase.substring(0, charIndex - 1); charIndex--; }
-            else { textElement.textContent = currentPhrase.substring(0, charIndex + 1); charIndex++; }
-            let typeSpeed = isDeleting ? 50 : 100;
-            if (!isDeleting && charIndex === currentPhrase.length) { isDeleting = true; typeSpeed = 2000; }
-            else if (isDeleting && charIndex === 0) { isDeleting = false; phraseIndex = (phraseIndex + 1) % phrases.length; typeSpeed = 500; }
-            setTimeout(type, typeSpeed);
-        }
-        setTimeout(type, 2200); // Start after preloader
+        // --- KONAMI CODE ---
+        const konamiCode = ['arrowup', 'arrowup', 'arrowdown', 'arrowdown', 'arrowleft', 'arrowright', 'arrowleft', 'arrowright', 'b', 'a'];
+        let konamiIndex = 0;
+        document.addEventListener('keydown', (e) => {
+            const key = e.key.toLowerCase();
+            if (key === konamiCode[konamiIndex]) {
+                konamiIndex++;
+                if (konamiIndex === konamiCode.length) {
+                    activateRedTeam();
+                    konamiIndex = 0;
+                }
+            } else {
+                konamiIndex = 0;
+            }
+        });
 
-        // --- 8. RESUME PASSWORD MODAL ---
+        function activateRedTeam() {
+            document.body.classList.add('red-team');
+            alert("SYSTEM BREACH DETECTED: RED TEAM MODE ACTIVATED");
+        }
+        function deactivateRedTeam() {
+            document.body.classList.remove('red-team');
+            alert("SYSTEM RESTORED: DEFENSE MODE ACTIVE");
+        }
+
+        // --- TERMINAL LOGIC ---
+        const terminalModal = document.getElementById('terminal-modal');
+        const terminalInput = document.getElementById('terminal-input');
+        const terminalOutput = document.getElementById('terminal-output');
+        let commandHistory = [];
+        let historyIndex = -1;
+
+        function toggleTerminal() {
+            if (terminalModal) {
+                terminalModal.classList.toggle('open');
+                if(terminalModal.classList.contains('open') && terminalInput) setTimeout(() => terminalInput.focus(), 100);
+            }
+        }
+
+        if (terminalInput) {
+            terminalInput.addEventListener('keydown', (e) => {
+                // Command History Navigation
+                if (e.key === 'ArrowUp') {
+                    if (historyIndex < commandHistory.length - 1) {
+                        historyIndex++;
+                        terminalInput.value = commandHistory[commandHistory.length - 1 - historyIndex];
+                    }
+                    e.preventDefault();
+                } else if (e.key === 'ArrowDown') {
+                    if (historyIndex > 0) {
+                        historyIndex--;
+                        terminalInput.value = commandHistory[commandHistory.length - 1 - historyIndex];
+                    } else {
+                        historyIndex = -1;
+                        terminalInput.value = '';
+                    }
+                    e.preventDefault();
+                } else if (e.key === 'Enter') {
+                    const cmd = terminalInput.value.trim(); // Keep case for display, but lower for process
+                    if (cmd) {
+                        commandHistory.push(cmd);
+                        historyIndex = -1;
+                        terminalInput.value = '';
+                        printOutput(`root@rishi:~$ ${cmd}`);
+                        processCommand(cmd.toLowerCase());
+                    }
+                }
+            });
+        }
+
+        function printOutput(text) {
+            if (!terminalOutput) return;
+            const div = document.createElement('div');
+            div.className = 'mb-1 text-gray-300';
+            div.textContent = text;
+            terminalOutput.appendChild(div);
+            terminalOutput.scrollTop = terminalOutput.scrollHeight;
+        }
+
+        function processCommand(cmd) {
+            // Navigation
+            if (cmd.startsWith('cd ')) {
+                const target = cmd.split(' ')[1];
+                const section = document.getElementById(target);
+                if(section) {
+                    printOutput(`Navigating to ./${target}...`);
+                    toggleTerminal();
+                    section.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    printOutput(`Directory not found: ${target}`);
+                }
+                return;
+            }
+            // Sudo Joke
+            if (cmd.startsWith('sudo ')) {
+                printOutput(`[sudo] password for rishi:`);
+                setTimeout(() => {
+                    printOutput(`Sorry, user rishi is not allowed to execute '${cmd.split(' ')[1]}' as root on this system.`);
+                    printOutput("This incident will be reported.");
+                }, 1000);
+                return;
+            }
+
+            switch(cmd) {
+                case 'help':
+                    printOutput("Available Commands:");
+                    printOutput("- ls: List sections");
+                    printOutput("- cd [dir]: Navigate to section");
+                    printOutput("- whoami: Display user identity");
+                    printOutput("- redteam: Activate Attack Mode");
+                    printOutput("- greenteam: Restore Defense Mode");
+                    printOutput("- debug: Toggle Wireframe Mode");
+                    printOutput("- scan: Re-run Network Scan");
+                    printOutput("- matrix: Toggle Matrix Rain");
+                    printOutput("- clear: Clear Terminal");
+                    printOutput("- destroy: ??? (DANGER)");
+                    break;
+                case 'ls':
+                    printOutput("home/  about/  projects/  achievements/  blog/  contact/  resume.pdf");
+                    break;
+                case 'whoami':
+                    printOutput("uid=1000(rishi) gid=1000(rishi) groups=1000(rishi),27(sudo),100(users)");
+                    printOutput("Rishi Kumavat | Cyber Security Student | Ethical Hacker");
+                    break;
+                case 'redteam':
+                    activateRedTeam();
+                    printOutput("[!] RED TEAM MODE ACTIVATED");
+                    break;
+                case 'greenteam':
+                    deactivateRedTeam();
+                    printOutput("[*] SYSTEM NORMALIZED");
+                    break;
+                case 'debug':
+                    document.body.classList.toggle('debug-mode');
+                    printOutput("[?] DEBUG WIREFRAME MODE TOGGLED");
+                    break;
+                case 'scan':
+                    printOutput("Scanning visitor network...");
+                    setTimeout(() => printOutput("Scan Complete. Result: Benign."), 1000);
+                    break;
+                case 'matrix':
+                    if (canvas) {
+                        canvas.classList.toggle('hidden-rain');
+                        printOutput(canvas.classList.contains('hidden-rain') ? "Matrix Rain OFF" : "Matrix Rain ON");
+                    }
+                    break;
+                case 'destroy':
+                case 'rm -rf /':
+                    printOutput("WARNING: DESTRUCTIVE COMMAND ISSUED.");
+                    setTimeout(() => {
+                        document.body.classList.add('destroy-mode');
+                        printOutput("CRITICAL ERROR: SYSTEM FAILURE IMMINENT.");
+                        setTimeout(() => location.reload(), 2000); // Reload page to reset
+                    }, 1000);
+                    break;
+                case 'clear':
+                    if (terminalOutput) terminalOutput.innerHTML = '';
+                    break;
+                
+                // --- NEW EASTER EGGS ---
+                case 'party':
+                    document.body.classList.toggle('party-mode');
+                    printOutput("🎶 PARTY MODE ACTIVATED 🎶");
+                    break;
+                case 'hack':
+                    printOutput("Initiating brute force attack...");
+                    setTimeout(() => printOutput("Bypassing firewall [12%]..."), 800);
+                    setTimeout(() => printOutput("Accessing Mainframe [45%]..."), 1600);
+                    setTimeout(() => printOutput("Injecting payload [89%]..."), 2400);
+                    setTimeout(() => printOutput("Access Granted. Downloading assets..."), 3200);
+                    setTimeout(() => printOutput("...Just kidding. Stay ethical!"), 4500);
+                    break;
+                case 'coffee':
+                    printOutput("Error 418: I'm a teapot. Cannot brew coffee. 🫖");
+                    break;
+                
+                default:
+                    printOutput(`Command not found: ${cmd}. Type 'help'.`);
+            }
+        }
+
+        // --- RESUME MODAL ---
         const modal = document.getElementById('resume-modal');
         const passInput = document.getElementById('password-input');
         const authMsg = document.getElementById('auth-msg');
         
-        function openModal() { modal.classList.add('show'); passInput.value = ""; authMsg.innerText = ""; passInput.focus(); }
-        function closeModal() { modal.classList.remove('show'); }
+        function openModal() { 
+            if(modal) {
+                modal.classList.add('active'); 
+                if(passInput) {
+                    passInput.value = ''; 
+                    setTimeout(() => passInput.focus(), 100); 
+                }
+                if(authMsg) authMsg.innerText = ''; 
+            }
+        }
+        function closeModal() { if(modal) modal.classList.remove('active'); }
         
         function checkPassword() {
-            // Check if user typed "your name" (case insensitive)
-            if (passInput.value.toLowerCase().trim() === "your name") {
-                authMsg.innerText = "ACCESS GRANTED. DOWNLOADING..."; authMsg.className = "text-xs h-4 mb-4 font-bold tracking-wider text-green-500";
-                setTimeout(() => { closeModal(); window.open('work_in_progress.jpeg', '_blank'); }, 1500);
+            if(!passInput) return;
+            const val = passInput.value.toLowerCase().trim();
+            if (val === "rishi kumavat" || val === "rishi" || val === "your name") {
+                if(authMsg) {
+                    authMsg.style.color = "#00ff41"; 
+                    authMsg.innerText = "ACCESS GRANTED. DECRYPTING...";
+                }
+                setTimeout(() => { closeModal(); window.open('work_in_progress.jpeg', '_blank'); }, 1000);
             } else {
-                authMsg.innerText = "ACCESS DENIED."; authMsg.className = "text-xs h-4 mb-4 font-bold tracking-wider text-red-500 animate-pulse";
-                passInput.classList.add('border-red-500'); setTimeout(() => passInput.classList.remove('border-red-500'), 500);
+                if(authMsg) {
+                    authMsg.style.color = "#ef4444"; 
+                    authMsg.innerText = "ACCESS DENIED: INVALID HASH";
+                }
+                passInput.classList.add('border-red-500'); 
+                setTimeout(() => passInput.classList.remove('border-red-500'), 500);
             }
         }
-        // Allow 'Enter' key to submit
-        passInput.addEventListener("keypress", (e) => { if (e.key === "Enter") checkPassword(); });
-        // Close modal if clicking outside box
-        window.onclick = (e) => { if (e.target == modal) closeModal(); }
+        
+        if (passInput) {
+            passInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') checkPassword(); });
+        }
 
-        // --- 9. AUDIO CONTROL LOGIC ---
+        // --- AUDIO ---
         const audio = document.getElementById('bg-music');
         const soundBtn = document.getElementById('sound-toggle');
-        const soundBtnMobile = document.getElementById('sound-toggle-mobile');
-        const soundIcon = document.getElementById('sound-icon');
-        const soundIconMobile = document.getElementById('sound-icon-mobile');
         let isPlaying = false;
-
-        function toggleSound() {
-            if (isPlaying) {
-                audio.pause();
-                soundIcon.classList.remove('fa-volume-up');
-                soundIcon.classList.add('fa-volume-mute');
-                soundIconMobile.classList.remove('fa-volume-up');
-                soundIconMobile.classList.add('fa-volume-mute');
-            } else {
-                audio.play().catch(e => console.log("Audio autoplay blocked by browser policy"));
-                soundIcon.classList.remove('fa-volume-mute');
-                soundIcon.classList.add('fa-volume-up');
-                soundIconMobile.classList.remove('fa-volume-mute');
-                soundIconMobile.classList.add('fa-volume-up');
-            }
-            isPlaying = !isPlaying;
+        
+        if (soundBtn && audio) {
+            soundBtn.addEventListener('click', () => {
+                const soundIcon = document.getElementById('sound-icon');
+                if(isPlaying) { 
+                    audio.pause(); 
+                    if(soundIcon) soundIcon.classList.replace('fa-volume-up', 'fa-volume-mute'); 
+                    soundBtn.classList.remove('text-cyber-neon'); 
+                } else { 
+                    audio.play().catch(e=>console.log(e)); 
+                    if(soundIcon) soundIcon.classList.replace('fa-volume-mute', 'fa-volume-up'); 
+                    soundBtn.classList.add('text-cyber-neon'); 
+                }
+                isPlaying = !isPlaying;
+            });
         }
 
-        if(soundBtn) soundBtn.addEventListener('click', toggleSound);
-        if(soundBtnMobile) soundBtnMobile.addEventListener('click', toggleSound);
+        // --- THEME ---
+        const themeBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const body = document.body;
+        
+        if (localStorage.getItem('theme') === 'light') { 
+            body.classList.add('light-mode'); 
+            if(themeIcon) themeIcon.classList.replace('fa-sun', 'fa-moon'); 
+        }
+        
+        if (themeBtn) {
+            themeBtn.addEventListener('click', () => {
+                if (body.classList.contains('light-mode')) { 
+                    body.classList.remove('light-mode'); 
+                    if(themeIcon) themeIcon.classList.replace('fa-moon', 'fa-sun'); 
+                    localStorage.setItem('theme', 'dark'); 
+                } else { 
+                    body.classList.add('light-mode'); 
+                    if(themeIcon) themeIcon.classList.replace('fa-sun', 'fa-moon'); 
+                    localStorage.setItem('theme', 'light'); 
+                }
+            });
+        }
     </script>
 </body>
 </html>
